@@ -1,15 +1,16 @@
-#ifndef LIBPRG_LIBPRG_H
-#define LIBPRG_LIBPRG_H
+#ifndef LIBPRG_H
+#define LIBPRG_H
 
-typedef struct {
-    double value;
-    int error;
-} result_t;
+/*-------- PILHA --------*/
+typedef struct pilha pilha_t;
 
-typedef enum { SUM, SUB } operation_t;
+pilha_t* criar_pilha(int capacidade);
+int empilhar(pilha_t *ponteiro, int elemento);
+int desempilhar(pilha_t *ponteiro);
+int mostrar_topo_pilha(pilha_t *ponteiro);
+int* mostra_pilha(pilha_t *ponteiro);
+void destruir_pilha(pilha_t* ponteiro);
 
-result_t sub(double a, double b);
-result_t sum(double a, double b);
-result_t compute(double a, double b, operation_t op);
-
+/*---------- FILA -----------*/
+typedef struct fila fila_t;
 #endif
