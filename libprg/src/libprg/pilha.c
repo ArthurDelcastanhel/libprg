@@ -1,65 +1,49 @@
-#include <stdlib.h>
-#include <libprg/libprg.h>
+#include "libprg/libprg.h"
 
-typedef struct pilha {
-    int *elementos;
-    int topo;
-    int capacidade;
-} pilha_t;
-
-//criar a pilha na memória
-pilha_t* criar_pilha(int capacidade) {
-    pilha_t *ponteiro = malloc(sizeof(pilha_t));
-    ponteiro->elementos = malloc(sizeof(int) * capacidade);
-    ponteiro->topo = -1;
-    ponteiro->capacidade = capacidade;
-    return ponteiro;
+void criar_pilha(Pilha *p) {
+    p->topo = -1;
 }
 
-//adiciona elemento na pilha
-int empilhar(pilha_t *ponteiro, int elemento) {
-    if (ponteiro->topo < ponteiro->capacidade - 1) {
-        ponteiro->topo++;
-        ponteiro->elementos[ponteiro->topo] = elemento;
-        return 1;
-    } else {
-        return 0;
+int pilha_vazia(Pilha *p) {
+    if (p->topo == -1) {
+        return 1; //se for verdadeiro, ela tá vazia
     }
+    return 0; //falso ela não está vazia
 }
 
-//remover elemento da pilha
-int desempilhar(pilha_t *ponteiro) {
-    if (ponteiro->topo >= 0) {
-        int elemento = ponteiro->elementos[ponteiro->topo];
-        ponteiro->topo--;
-        return elemento;
+int pilha_cheia(Pilha *p) {
+    if (p->topo == MAX_PILHA - 1) {
+        return 1; //se for verdadeiro, ela tá cheia
     }
-    else {
-        return -1;
-    }
+    return 0; // falso, não está cheia
 }
 
-//mostra o topo da pilha
-int mostrar_topo_pilha(pilha_t *ponteiro) {
-    if (ponteiro->topo >= 0) {
-        return ponteiro->elementos[ponteiro->topo];
-    } else {
-        //se a pilha estiver vazia
-        return -1;
+int empilhar(Pilha *p, int valor) {
+    if (pilha_cheia(p)) {
+        return 0; //overflow da pilha
     }
+    p->topo++;
+    p->dados[p->topo] = valor;
+    return 1; //sucesso na operação
 }
 
-//mostrar pilha
-int* mostra_pilha(pilha_t *ponteiro) {
-    int* elementos_copia = malloc(sizeof(int) * (ponteiro->topo + 1));
-    for (int i = 0; i <= ponteiro->topo; i++) {
-        elementos_copia[i] = ponteiro->elementos[i];
+int desempilhar(Pilha *p, int *valor_removido) {
+    if (pilha_vazia(p)) {
+        return 0; //underflow da pilha
     }
-    return elementos_copia;
+    *valor_removido = p->dados[p->topo];
+    p->topo--;
+    return 1; //sucesso na operação
 }
 
-//destruir pilha
-void destruir_pilha(pilha_t *ponteiro) {
-    free(ponteiro->elementos);
-    free(ponteiro);
+int consultar_topo(Pilha *p, int *valor_topo) {
+    if (pilha_vazia(p)) {
+        return 0; //não tem o que consultar
+    }
+    *valor_topo = p->dados[p->topo];
+    return 1; //sucesso
+}
+
+int tamanho_pilha(Pilha *p) {
+    return p->topo + 1;
 }

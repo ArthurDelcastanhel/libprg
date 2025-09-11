@@ -28,8 +28,13 @@ fila_t* criar_fila(int capacidade) {
 
 void enfileirar(fila_t* fila, int valor) {
 
+    if (cheia(fila)) {
+        exit(EXIT_FAILURE);
+    }
+
     fila->elementos[fila->fim] = valor;
-    fila->fim++;
+    fila->fim = (fila->fim + 1) % fila->capacidade;
+    fila->tamanho++;
 
 
 
