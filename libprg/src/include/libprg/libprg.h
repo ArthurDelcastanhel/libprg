@@ -1,29 +1,49 @@
-#ifndef LIBPRG_LIBPRG_H
-#define LIBPRG_LIBPRG_H
-#define MAX_PILHA 100
+#ifndef LABORATORIO_LIBPRG_H
+#define LABORATORIO_LIBPRG_H
+#include <stdbool.h>
 
-typedef struct {
-    double value;
-    int error;
-} result_t;
-
-typedef enum { SUM, SUB } operation_t;
-
-typedef struct {
-    int dados[MAX_PILHA];
+//|-- PILHA --|
+typedef struct pilha
+{
+    int *elementos;
     int topo;
-} Pilha;
+    int capacidade;
+} pilha_t;
 
-void criar_pilha(Pilha *p);
-int pilha_vazia(Pilha *p); //retorna 1 se a pilha tiver vazia
-int pilha_cheia(Pilha *p); //retorna 1 se a pilha tiver cheia
-int empilhar(Pilha *p, int valor); //retorna 1 se a deu certo, retorna 0 se der overflow
-int desempilhar(Pilha *p, int *valor_removido); //retorna 1 se deu certo, retorna 0 se der underflow
-int consultar_topo(Pilha *p, int *valor_topo); //retorna 1 der certo, 0 se vazia
-int tamanho_pilha(Pilha *p); //da return na quantidade de itens na pilha
+pilha_t *criar_pilha(int capacidade);
+int empilhar_pilha(pilha_t *p, int valor);
+int desempilhar_pilha(pilha_t *p);
+int topo_pilha(pilha_t *p);
+int *listar_pilha(pilha_t *p);
+int tamanho_pilha(pilha_t *p);
+void destruir_pilha(pilha_t *p);
 
-result_t sub(double a, double b);
-result_t sum(double a, double b);
-result_t compute(double a, double b, operation_t op);
+//|-- FILA --|
+typedef struct fila {
+    int* elementos;
+    int capacidade;
+    int tamanho;
+    int inicio;
+    int fim;
+}fila_t;
 
-#endif
+fila_t* criar_fila(int capacidade);
+void enfileirar(fila_t* fila, int valor);
+void desenfileirar(fila_t *f);
+int inicio_fila(fila_t *f);
+int fim_fila(fila_t *f);
+int tamanho_fila(fila_t *f);
+bool fila_cheia(fila_t *f);
+bool fila_vazia(fila_t *f);
+void destruir_fila(fila_t *f);
+
+//|-- LISTA LINEAR --|
+typedef struct lista_linear {
+    int* elementos;
+    int tamanho;
+    int capacidade;
+} lista_linear_t;
+
+
+
+#endif //LABORATORIO_LIBPRG_H
