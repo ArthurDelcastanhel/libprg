@@ -20,11 +20,6 @@ void destruir_pilha(pilha_t *p);
 
 //|-- FILA --|
 typedef struct fila {
-    int* elementos;
-    int capacidade;
-    int tamanho;
-    int inicio;
-    int fim;
 }fila_t;
 
 fila_t* criar_fila(int capacidade);
@@ -37,13 +32,22 @@ bool fila_cheia(fila_t *f);
 bool fila_vazia(fila_t *f);
 void destruir_fila(fila_t *f);
 
+
 //|-- LISTA LINEAR --|
 typedef struct lista_linear {
-    int* elementos;
+    int *elementos;
     int tamanho;
     int capacidade;
-} lista_linear_t;
+    bool ordenada;
+}lista_t;
 
+lista_t *criar_lista_linear(int capacidade, bool ordenada);
+bool lista_cheia(lista_t *l);
+bool lista_vazia(lista_t *l);
+void inserir_na_lista(lista_t *l, int valor);
+int buscar_na_lista(lista_t *l, int valor);
+void remover_da_lista(lista_t *l, int valor);
+void destruir_lista(lista_t *l);
 
 
 #endif //LABORATORIO_LIBPRG_H
