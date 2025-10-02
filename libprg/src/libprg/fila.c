@@ -3,6 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct fila {
+    int* elementos;
+    int capacidade;
+    int tamanho;
+    int inicio;
+    int fim;
+}fila_t;
+
 fila_t *criar_fila(int capacidade) {
     fila_t *f = malloc(sizeof(fila_t));
 
@@ -21,7 +29,7 @@ void enfileirar(fila_t *f, int valor) {
         exit(EXIT_FAILURE);
     }
     f->elementos[f->fim] = valor;
-    f->fim;
+    f->fim++;
     f->tamanho++;
 }
 
@@ -42,20 +50,22 @@ int inicio_fila(fila_t *f) {
 
 int fim_fila(fila_t *f){
     if (!fila_vazia(f)) {
-        return f->elementos[f->fim];
+        return f->elementos[f->fim - 1];
     }
     return -1;
 }
 
 int tamanho_fila(fila_t *f){
-    if (fila_vazia(f)) {
-        return 0;
-    } else if (fila_cheia(f)) {
-        return f->capacidade;
-    } else if ((f->fim > f->inicio) || (f->fim == f->inicio)) {
-        return f->fim;
-    }
-    return f->inicio;
+    // if (fila_vazia(f)) {
+    //     return 0;
+    // } else if (fila_cheia(f)) {
+    //     return f->capacidade;
+    // } else if ((f->fim > f->inicio) || (f->fim == f->inicio)) {
+    //     return f->fim;
+    // }
+    // return f->inicio;
+
+    return f->tamanho;
 }
 
 bool fila_cheia(fila_t *f) {
@@ -64,6 +74,14 @@ bool fila_cheia(fila_t *f) {
 
 bool fila_vazia(fila_t *f) {
     return f->tamanho == 0;
+}
+
+void listar_fila(fila_t *f)
+{
+    for (int i = 0; i < f->fim; i++)
+    {
+        printf("\t%d", f->elementos[i]);
+    }
 }
 
 void destruir_fila(fila_t *f){

@@ -1,49 +1,88 @@
 #include "libprg/libprg.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-void criar_pilha(Pilha *p) {
+typedef struct pilha
+{
+    int *elementos;
+    int topo;
+    int capacidade;
+} pilha_t;
+
+pilha_t *criar_pilha(int capacidade) {
+    pilha_t *p = malloc(sizeof(pilha_t));
+
+    p->elementos = malloc(capacidade * sizeof(int));
     p->topo = -1;
+    p->capacidade = capacidade;
+
+    return p;
 }
 
-int pilha_vazia(Pilha *p) {
-    if (p->topo == -1) {
-        return 1; //se for verdadeiro, ela tá vazia
+int empilhar_pilha(pilha_t *p, int valor)
+{
+    if (p->topo < p->capacidade - 1)
+    {
+        p->topo++;
+        p->elementos[p->topo] = valor;
+        return 1;
     }
-    return 0; //falso ela não está vazia
-}
-
-int pilha_cheia(Pilha *p) {
-    if (p->topo == MAX_PILHA - 1) {
-        return 1; //se for verdadeiro, ela tá cheia
+    else
+    {
+        return 0;
     }
-    return 0; // falso, não está cheia
 }
 
-int empilhar(Pilha *p, int valor) {
-    if (pilha_cheia(p)) {
-        return 0; //overflow da pilha
+int desempilhar_pilha(pilha_t *p)
+{
+    if (p->topo >= 0)
+    {
+        int elemento = p->elementos[p->topo];
+        p->topo--;
+        return elemento;
     }
-    p->topo++;
-    p->dados[p->topo] = valor;
-    return 1; //sucesso na operação
-}
-
-int desempilhar(Pilha *p, int *valor_removido) {
-    if (pilha_vazia(p)) {
-        return 0; //underflow da pilha
+    else
+    {
+        return -1;
     }
-    *valor_removido = p->dados[p->topo];
-    p->topo--;
-    return 1; //sucesso na operação
 }
 
-int consultar_topo(Pilha *p, int *valor_topo) {
-    if (pilha_vazia(p)) {
-        return 0; //não tem o que consultar
+int topo_pilha(pilha_t *p)
+{
+    if (p->topo >= 0)
+    {
+        return p->elementos[p->topo];
     }
-    *valor_topo = p->dados[p->topo];
-    return 1; //sucesso
+    else
+    {
+        return -1;
+    }
 }
 
-int tamanho_pilha(Pilha *p) {
-    return p->topo + 1;
+int* listar_pilha(pilha_t *p)
+{
+    int* cc = malloc(sizeof(int) * (p->topo + 1));
+    for (int i = 0; i <= p->topo; i++)
+    {
+        cc[i] = p->elementos[i];
+    }
+    return cc;
+}
+
+int tamanho_pilha(pilha_t *p)
+{
+    if (p->topo >= 0)
+    {
+        return p->topo + 1;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+void destruir_pilha(pilha_t *p)
+{
+    free(p->elementos);
+    free(p);
 }
