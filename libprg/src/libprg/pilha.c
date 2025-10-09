@@ -69,6 +69,8 @@ int* listar_pilha(pilha_t *p)
     return cc;
 }
 
+// para mostrar a pilha na ordem inversa se faz int inverter_pilha(pilha_p *p) { for (int i = tamanho - 1; i >= 0; i--) { printf("%d ", numeros[i]);}  }
+
 int tamanho_pilha(pilha_t *p)
 {
     if (p->topo >= 0)
