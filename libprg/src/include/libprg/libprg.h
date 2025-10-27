@@ -13,6 +13,12 @@ int topo_pilha(pilha_t* p);
 int* listar_pilha(pilha_t* p);
 int tamanho_pilha(pilha_t* p);
 void destruir_pilha(pilha_t* p);
+void empilhar_na_posicao(pilha_t *p, int valor, int posicao);
+int limitar_posicao_da_pilha(pilha_t* p, int posicao);
+bool pilha_cheia(pilha_t *p);
+bool pilha_vazia(pilha_t* p);
+int buscar_na_posicao_da_pilha(pilha_t* p, int posicao);
+void desempilhar_na_posicao(pilha_t* p, int posicao);
 
 //|-- FILA --|
 
@@ -43,6 +49,9 @@ int tamanho_lista_linear(lista_linear_t* ll);
 void listar_lista_linear(lista_linear_t *ll);
 int inicio_lista_linear(lista_linear_t *ll);
 void destruir_lista(lista_linear_t* ll);
+int buscar_na_posicao_da_lista(lista_linear_t* ll, int posicao);
+void inserir_na_posicao_da_lista(lista_linear_t* ll, int valor, int posicao);
+void remover_na_posicao_da_lista(lista_linear_t* ll, int posicao);
 
 // |-- LISTA ENCADEADA --|
 
@@ -50,24 +59,35 @@ typedef struct no no_t;
 
 no_t* criar_lista_encadeada(int valor);
 void adicionar_na_lista_encadeada(no_t** inicio, int valor);
+no_t* inicio_lista_encadeada(no_t** inicio);
 no_t* buscar_na_lista_encadeada(no_t** inicio, int valor);
+void listar_lista_encadeada(no_t **inicio);
 void remover_da_lista_encadeada(no_t** inicio, int valor);
-void destruir_lista_encadeada(no_t* no);
-
+void destruir_lista_encadeada(no_t** inicio);
 no_t* criar_lista_encadeada_circular(int valor);
 void adicionar_na_lista_encadeada_circular(no_t** inicio, int valor);
+void destruir_lista_encadeada_circular(no_t **inicio);
+void adicionar_na_posicao_da_lista_encadeada(no_t** inicio, int valor, int posicao);
+int tamanho_da_lista_encadeada(no_t* inicio);
+int limitar_na_lista_encadeada(no_t** inicio, int posicao);
+bool lista_encadeada_vazia(no_t** inicio);
+no_t* buscar_na_posicao_da_lista_encadeada(no_t** inicio, int posicao);
+void remover_da_posicao_da_lista_encadeada(no_t** inicio, int posicao);
+int tamanho_da_lista_encadeada_circular(no_t* inicio);
+void adicionar_na_posicao_da_lista_encadeada_circular(no_t** inicio, int valor, int posicao);
+no_t* ultimo_no_da_lista_encadeada_circular(no_t* inicio);
 
 // |-- LISTA ENCADEADA DUPLA --|
 
-typedef struct no_duplo {
-    int valor;
-    struct no_duplo *anterior;
-    struct no_duplo *proximo;
-}no_duplo_t;
+typedef struct no_duplo no_duplo_t;
 
 no_duplo_t* criar_lista_encadeada_dupla(int valor);
 void adicionar_na_lista_encadeada_dupla(no_duplo_t **inicio, int valor);
 no_duplo_t* buscar_na_lista_encadeada_dupla(no_t** inicio, int valor);
 void remover_da_lista_encadeada_dupla(no_duplo_t** inicio, int valor);
+void adicionar_na_posicao_da_lista_encadeada_dupla(no_duplo_t** inicio, int valor, int posicao);
+void remover_da_posicao_da_lista_encadeada_dupla(no_duplo_t** inicio, int posicao);
+no_duplo_t* buscar_na_posicao_da_lista_encadeada_dupla(no_duplo_t** inicio, int posicao);
+int tamanho_da_lista_encadeada_dupla(no_duplo_t* inicio);
 
 #endif //LABORATORIO_LIBPRG_H

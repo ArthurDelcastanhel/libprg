@@ -11,7 +11,6 @@ set(SOURCES
         "${CMAKE_CURRENT_LIST_DIR}/src/libprg/pilha.c"
         src/include/libprg/libprg.h
         src/libprg/fila.c
-        src/libprg/libprg.c
         src/libprg/lista_linear.c
         src/libprg/lista_encadeada.c
         src/libprg/lista_encadeada_dupla.c
